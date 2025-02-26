@@ -1,9 +1,13 @@
-import { Button } from '@/components/ui/button';
+import { Container } from '@chakra-ui/react';
+
+import { IssuesBoard } from '@/features/issues/components/issues-board';
 
 export const App = () => {
   return (
-    <div>
-      <Button variant="plain">Click me</Button>
-    </div>
+    <main>
+      <Container maxW="6xl">
+        <IssuesBoard />
+      </Container>
+    </main>
   );
 };
