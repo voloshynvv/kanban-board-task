@@ -1,4 +1,4 @@
-import { Box, Center, Heading, HStack, Stack } from '@chakra-ui/react';
+import { Box, Center, Heading, HStack } from '@chakra-ui/react';
 
 interface BoardColumnProps {
   name: string;
@@ -16,9 +16,9 @@ export const BoardColumn = ({ name, total, children }: BoardColumnProps) => {
         </Center>
       </HStack>
 
-      <Stack bg="bg.muted" p="5" gap="4">
+      <Box bg="bg.muted" height="100vh" maxH="900px" overflow="auto" p="5">
         {children}
-      </Stack>
+      </Box>
     </Box>
   );
 };
