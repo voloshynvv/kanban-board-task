@@ -1,15 +1,13 @@
-import { useSortable } from '@dnd-kit/sortable';
+import { useSortable, UseSortableArguments } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-interface SortableItemProps {
-  id: number;
+interface SortableItemProps extends UseSortableArguments {
   children: React.ReactNode;
 }
 
-export const SortableItem = ({ id, children }: SortableItemProps) => {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
+export const SortableItem = ({ children, ...sortableOptions }: SortableItemProps) => {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable(sortableOptions);
 
-  // Improve animations
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,

@@ -1,7 +1,13 @@
 import { Box, Card, HStack, Link, Separator, Text } from '@chakra-ui/react';
 import { Avatar } from '@/components/ui/avatar';
+import { Issue } from '../utilts';
+import { memo } from 'react';
 
-export const IssueCard = () => {
+interface IssueCardProps {
+  issueId: Issue['id'];
+}
+
+export const IssueCard = memo(({ issueId }: IssueCardProps) => {
   return (
     <Card.Root shadow="sm" border="none">
       <Card.Body py="2" px="3" rounded="lg">
@@ -27,5 +33,4 @@ export const IssueCard = () => {
       </Card.Body>
     </Card.Root>
   );
-};
-//
+});
