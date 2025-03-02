@@ -10,16 +10,16 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
-import { Board } from './types';
+import { Board, TouchedField } from './types';
 
 interface UseDndProps {
   initialItems: Board;
+  onDragEnd?: (touchedField: TouchedField) => void;
 }
 
-export const useDnd = ({ initialItems }: UseDndProps) => {
+export const useDnd = ({ initialItems, onDragEnd }: UseDndProps) => {
   const [items, setItems] = useState(initialItems);
   const [clonedItems, setClonedItems] = useState<typeof items | null>(null);
-
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
   const sensors = useSensors(
@@ -81,16 +81,20 @@ export const useDnd = ({ initialItems }: UseDndProps) => {
         const overIndex = items[overContainer].indexOf(overId);
 
         if (activeIndex !== overIndex) {
-          setItems((items) => ({
+          const newItems = {
             ...items,
             [overContainer]: arrayMove(items[overContainer], activeIndex, overIndex),
-          }));
+          };
+          setItems(newItems);
         }
       }
 
+      const container = typeof over?.id === 'string' ? over.id : over?.data.current?.sortable.containerId;
+
+      onDragEnd?.({ id: active.id, container });
       setActiveId(null);
     },
-    [findContainer, items],
+    [findContainer, items, onDragEnd],
   );
 
   const handleDragOver = useCallback(

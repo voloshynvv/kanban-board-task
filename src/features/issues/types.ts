@@ -17,6 +17,7 @@ export interface Issue {
     login: string;
     id: number;
     avatarUrl: string;
+    homeUrl: string;
   };
   state: IssueState;
   status: IssueStatus;
@@ -24,5 +25,9 @@ export interface Issue {
   comments: number;
   createdAt: string;
   updatedAt: string;
-  order: number;
+}
+
+export interface UpdateIssue {
+  id: number;
+  status: IssueStatus;
 }

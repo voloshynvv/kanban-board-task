@@ -9,6 +9,11 @@ const customConfig = defineConfig({
       },
     },
   },
+  globalCss: {
+    body: {
+      bg: 'gray.50',
+    },
+  },
 });
 
 export const system = createSystem(defaultConfig, customConfig);

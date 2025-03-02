@@ -1,19 +1,41 @@
-import { closestCenter, closestCorners, DndContext, DragOverlay } from '@dnd-kit/core';
+import { useEffect, useState } from 'react';
+import { closestCorners, DndContext, DragOverlay } from '@dnd-kit/core';
+import { useAppDispatch, useAppSelector } from '@/redux/with-types';
 
 import { Grid } from '@chakra-ui/react';
 import { useDnd } from '@/components/dnd';
 import { IssueCard } from './issue-card';
 import { BoardColumn } from './board-column';
 
-import { getIssues, prepareBoard } from '../utilts';
-import { IssueStatus } from '../types';
+import { issueUpdated } from '../issues-slice';
+import { prepareBoard } from '../utilts';
+import { Issue, IssueStatus } from '../types';
+import { localStorageService } from '@/services/local-storage';
+import { Board } from '@/components/dnd/types';
 
-export const IssuesBoard = () => {
-  const issues = getIssues();
+interface IssuesBoardProps {
+  issues: Issue[];
+  repo: string;
+  owner: string;
+}
+
+export const IssuesBoard = ({ issues, repo, owner }: IssuesBoardProps) => {
+  const dispatch = useAppDispatch();
+
+  const localStorageKey = `${owner}-${repo}`;
+  const savedBoard = localStorageService.getItem<Board>(localStorageKey);
+  const initialItems = savedBoard ? savedBoard : prepareBoard(issues);
 
   const { activeId, items, sensors, handleDragCancel, handleDragOver, handleDragStart, handleDragEnd } = useDnd({
-    initialItems: prepareBoard(issues),
+    initialItems,
+    onDragEnd: (touchedField) => {
+      dispatch(issueUpdated({ id: touchedField.id as number, status: touchedField.container as IssueStatus }));
+    },
   });
+
+  useEffect(() => {
+    localStorageService.setItem(localStorageKey, items);
+  }, [localStorageKey, items]);
 
   return (
     <DndContext
@@ -35,7 +57,7 @@ export const IssuesBoard = () => {
           duration: 500,
         }}
       >
-        {activeId && <IssueCard />}
+        {activeId && <IssueCard issueId={activeId as number} />}
       </DragOverlay>
     </DndContext>
   );
