@@ -1,50 +1,29 @@
-# React + TypeScript + Vite
+# Github Kanban Board
+Live: https://kanban-board-task-piok.vercel.app/
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Requirements
+✅ User should enter repo URL in the input on top of the page and press "Load". For example: ```https://github.com/facebook/react``` <br/>
+✅ App loads issues for the repo using Github API.<br/>
+✅ App contains 3 columns: ToDo, In Progress, Done.<br/>
+✅ User should be able to drag-n-drop between the columns and change the order of issues.<br/>
+✅ Current issue position (column and order) should be stored between search and browser sessions. When the user loads issues for Repo1 -> Repo2 -> Repo1 he should see all changes he did for Repo1.<br/>
+✅ User should be able to visit the profile of the owner of the repo and visit the repo as well by links under the input.
 
-Currently, two official plugins are available:
+## Technologies
+* React
+* TypeScript
+* Redux Toolkit
+* Chakra UI
+* dnd kit
+* Vitest, React Testing Library, MSW
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## How to start the app locally? 
+Rename ```.env.example``` to ```.env.local``` <br/>
+```VITE_API_KEY``` is optional. In case you face rate limits (as I did during development), please provide your own key.
 
-## Expanding the ESLint configuration
+Read more about rate limits: https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28#primary-rate-limit-for-unauthenticated-users
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
 ```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+npm i 
+npm run dev
 ```
