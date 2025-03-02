@@ -16,7 +16,7 @@ export const IssueCard = memo(({ issueId }: IssueCardProps) => {
   if (!issue) return null;
 
   return (
-    <Card.Root shadow="sm" border="none">
+    <Card.Root shadow="sm" border="none" data-testid="dnd-cart">
       <Card.Body py="2" px="3" rounded="lg">
         <Card.Title textStyle="md" lineClamp="2" wordBreak="break-word" fontWeight="500">
           {issue.title}

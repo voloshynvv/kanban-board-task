@@ -1,9 +1,10 @@
-import { Box, Grid, Skeleton } from '@chakra-ui/react';
+import { Box, Grid, Skeleton, VisuallyHidden } from '@chakra-ui/react';
 
 export const AppSkeleton = () => {
   return (
     <Box>
       <Skeleton height="24px" />
+      <VisuallyHidden>Loading...</VisuallyHidden>
 
       <Grid overflow="auto" gridTemplateColumns="repeat(3, minmax(280px, 1fr))" mt="2" gap="5">
         <Box>

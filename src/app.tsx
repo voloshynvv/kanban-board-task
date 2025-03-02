@@ -54,7 +54,7 @@ export const App = () => {
 
           {failed && (
             <Stack alignItems="center" mt="4">
-              <img src={errorIcon} alt="" />
+              <img width={150} height={120} src={errorIcon} alt="" />
               <p>Oops! Something went wrong. Try again in a bit!</p>
             </Stack>
           )}

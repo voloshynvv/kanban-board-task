@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Issue, IssueStatus, UpdateIssue } from './types';
-import { AsyncSlice, createAppAsyncThunk, RootState } from '@/redux/with-types';
+import { AsyncSlice, createAppAsyncThunk } from '@/redux/with-types';
 import { env } from '@/config/env';
 import { urlCleared, urlSet } from '../search/search-slice';
+import { RootState } from '@/redux/store';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const adaptDto = (issue: any): Issue => {

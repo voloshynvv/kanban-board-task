@@ -7,7 +7,7 @@ interface RepoDetailsProps {
 
 export const RepoDetails = ({ repo }: RepoDetailsProps) => {
   return (
-    <HStack flexWrap="wrap">
+    <HStack flexWrap="wrap" data-testid="repo">
       <Link href={repo.owner.url} target="_blank" color="blue.700">
         {repo.owner.login}
       </Link>
@@ -21,7 +21,9 @@ export const RepoDetails = ({ repo }: RepoDetailsProps) => {
           ⭐️
         </Box>
 
-        <Text>{repo.stars}K Stars</Text>
+        <Text>
+          <span>{repo.stars}</span>K Stars
+        </Text>
       </Flex>
     </HStack>
   );

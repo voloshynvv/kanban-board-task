@@ -81,12 +81,13 @@ describe('Form', () => {
     });
   });
 
-  it('does not submit the form if value is not changed', () => {
+  it('reset the search state when input is empty', () => {
     const initialState = {
       url: 'https://github.com/facebook/react',
       repo: 'react',
       owner: 'facebook',
     };
+
     const { store } = renderWithProviders(<Form />, { preloadedState: { search: initialState } });
 
     const inputEl = screen.getByLabelText(inputLabel);
@@ -94,9 +95,13 @@ describe('Form', () => {
       name: buttonName,
     });
 
-    fireEvent.change(inputEl, { target: { value: 'https://github.com/facebook/react' } });
+    fireEvent.change(inputEl, { target: { value: '' } });
     fireEvent.click(button);
 
-    expect(store.getState().search).toEqual(initialState);
+    expect(store.getState().search).toEqual({
+      url: '',
+      repo: '',
+      owner: '',
+    });
   });
 });
