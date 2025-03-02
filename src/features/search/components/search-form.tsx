@@ -14,10 +14,10 @@ export const SearchForm = () => {
 };
 
 interface SearchFormProps {
-  initialValue: string;
+  initialValue?: string;
 }
 
-export const Form = ({ initialValue }: SearchFormProps) => {
+export const Form = ({ initialValue = '' }: SearchFormProps) => {
   const dispatch = useAppDispatch();
 
   const [value, setValue] = useState(initialValue);
@@ -47,8 +47,6 @@ export const Form = ({ initialValue }: SearchFormProps) => {
       owner,
       repo,
     };
-
-    console.log({ payload, repoUrl });
 
     if (payload.url === initialValue) return;
 
