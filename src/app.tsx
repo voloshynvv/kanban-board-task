@@ -45,7 +45,7 @@ export const App = () => {
           <SearchForm />
 
           {idle && (!repo || !owner) && (
-            <Stack alignItems="center" mt="4">
+            <Stack alignItems="center" mt="4" textAlign="center">
               <img width={150} height={120} src={searchIcon} alt="" />
               <p>Search, filter, and re-order issues from any repository with ease.</p>
               <p>Enter a GitHub repository to get started!</p>
@@ -53,7 +53,7 @@ export const App = () => {
           )}
 
           {failed && (
-            <Stack alignItems="center" mt="4">
+            <Stack alignItems="center" mt="4" textAlign="center">
               <img width={150} height={120} src={errorIcon} alt="" />
               <p>Oops! Something went wrong. Try again in a bit!</p>
             </Stack>
