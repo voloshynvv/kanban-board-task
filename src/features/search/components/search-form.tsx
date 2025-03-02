@@ -1,9 +1,10 @@
-import { Box, Button, HStack, Input, Tag, Text, VisuallyHidden } from '@chakra-ui/react';
 import { useState } from 'react';
-import { suggestions } from '../config';
 import { useAppDispatch, useAppSelector } from '@/redux/with-types';
+
+import { Box, Button, HStack, Input, Tag, Text, VisuallyHidden } from '@chakra-ui/react';
+
 import { urlCleared, urlSet } from '../search-slice';
-import { initialState } from '../search-slice';
+import { suggestions } from '../config';
 import { localStorageService } from '@/services/local-storage';
 
 export const SearchForm = () => {
@@ -30,6 +31,31 @@ export const Form = ({ initialValue }: SearchFormProps) => {
     return regex.test(value);
   };
 
+  const updateSearch = (repoUrl: string) => {
+    const match = repoUrl.match(regex);
+
+    if (!match) {
+      setError(true);
+      return;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [_, owner, repo] = match;
+
+    const payload = {
+      url: repoUrl,
+      owner,
+      repo,
+    };
+
+    console.log({ payload, repoUrl });
+
+    if (payload.url === initialValue) return;
+
+    localStorageService.setItem('search', payload);
+    dispatch(urlSet(payload));
+  };
+
   const handleBlur = () => {
     setError(!isValid(value));
   };
@@ -50,25 +76,11 @@ export const Form = ({ initialValue }: SearchFormProps) => {
       return;
     }
 
-    const match = value.match(regex);
+    updateSearch(value);
+  };
 
-    if (!match) {
-      setError(true);
-      return;
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_, owner, repo] = match;
-
-    const payload = {
-      url: value,
-      owner,
-      repo,
-    };
-
-    localStorageService.setItem('search', payload);
-
-    dispatch(urlSet(payload));
+  const handleSuggestionClick = (repoUrl: string) => {
+    updateSearch(repoUrl);
   };
 
   return (
@@ -91,15 +103,7 @@ export const Form = ({ initialValue }: SearchFormProps) => {
               <HStack>
                 {suggestions.map((suggestion) => (
                   <Tag.Root asChild key={suggestion.id}>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                        const { id, ...rest } = suggestion;
-                        localStorageService.setItem('search', rest);
-                        dispatch(urlSet(suggestion));
-                      }}
-                    >
+                    <button type="button" onClick={() => handleSuggestionClick(suggestion.url)}>
                       <Tag.Label>
                         {suggestion.owner}/{suggestion.repo}
                       </Tag.Label>

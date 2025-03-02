@@ -2,12 +2,16 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/with-types';
 
 import { Container, Stack } from '@chakra-ui/react';
+import { AppSkeleton } from '@/components/app-skeleton';
 import { SearchForm } from '@/features/search/components/search-form';
 import { RepoDetails } from '@/features/repo/components/repo-details';
 import { IssuesBoard } from '@/features/issues/components/issues-board';
 
 import { fetchIssues } from '@/features/issues/issues-slice';
 import { fetchRepo } from '@/features/repo/repo-slice';
+
+import searchIcon from '@/assets/search.svg';
+import errorIcon from '@/assets/error.svg';
 
 export const App = () => {
   const dispatch = useAppDispatch();
@@ -40,9 +44,23 @@ export const App = () => {
         <Stack gap="2">
           <SearchForm />
 
-          {idle && <p>Idle</p>}
-          {pending && <p>Loading...</p>}
-          {failed && <p>Error</p>}
+          {idle && (!repo || !owner) && (
+            <Stack alignItems="center" mt="4">
+              <img width={150} height={120} src={searchIcon} alt="" />
+              <p>Search, filter, and re-order issues from any repository with ease.</p>
+              <p>Enter a GitHub repository to get started!</p>
+            </Stack>
+          )}
+
+          {failed && (
+            <Stack alignItems="center" mt="4">
+              <img src={errorIcon} alt="" />
+              <p>Oops! Something went wrong. Try again in a bit!</p>
+            </Stack>
+          )}
+
+          {pending && <AppSkeleton />}
+
           {succeeded && (
             <>
               <RepoDetails repo={repoDetails} />
