@@ -7,20 +7,21 @@ import { SearchForm } from '@/features/search/components/search-form';
 import { RepoDetails } from '@/features/repo/components/repo-details';
 import { IssuesBoard } from '@/features/issues/components/issues-board';
 
-import { fetchIssues } from '@/features/issues/issues-slice';
-import { fetchRepo } from '@/features/repo/repo-slice';
+import { fetchIssues, selectIssues, selectIssuesStatus } from '@/features/issues/issues-slice';
+import { fetchRepo, selectRepo, selectRepoStatus } from '@/features/repo/repo-slice';
+import { selectSearchOwner, selectSearchRepo } from '@/features/search/search-slice';
 
 import searchIcon from '@/assets/search.svg';
 import errorIcon from '@/assets/error.svg';
 
 export const App = () => {
   const dispatch = useAppDispatch();
-  const owner = useAppSelector((state) => state.search.owner);
-  const repo = useAppSelector((state) => state.search.repo);
-  const issuesStatus = useAppSelector((state) => state.issues.status);
-  const repoStatus = useAppSelector((state) => state.repo.status);
-  const issues = useAppSelector((state) => state.issues.data);
-  const repoDetails = useAppSelector((state) => state.repo.data);
+  const owner = useAppSelector(selectSearchOwner);
+  const repo = useAppSelector(selectSearchRepo);
+  const issuesStatus = useAppSelector(selectIssuesStatus);
+  const repoStatus = useAppSelector(selectRepoStatus);
+  const issues = useAppSelector(selectIssues);
+  const repoDetails = useAppSelector(selectRepo);
 
   const idle = repoStatus === 'idle' && issuesStatus === 'idle';
   const pending = repoStatus === 'pending' || issuesStatus === 'pending';

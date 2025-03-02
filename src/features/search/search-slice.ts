@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '@/redux/store';
 import { localStorageService } from '@/services/local-storage';
 
 interface SearchSliceState {
@@ -31,6 +32,16 @@ const searchSlice = createSlice({
     },
   },
 });
+
+export const selectSearchUrl = (state: RootState) => {
+  return state.search.url;
+};
+export const selectSearchOwner = (state: RootState) => {
+  return state.search.owner;
+};
+export const selectSearchRepo = (state: RootState) => {
+  return state.search.repo;
+};
 
 export const { urlSet, urlCleared } = searchSlice.actions;
 export default searchSlice.reducer;

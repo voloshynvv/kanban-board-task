@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { formatDistanceToNow } from 'date-fns';
 import { useAppSelector } from '@/redux/with-types';
 
 import { Box, Card, HStack, Link, Separator, Text } from '@chakra-ui/react';
@@ -25,7 +26,7 @@ export const IssueCard = memo(({ issueId }: IssueCardProps) => {
         <Box fontSize="sm" color="fg.muted">
           <HStack gapX="2" mb="1">
             <Text>#{issue.number}</Text>
-            <Text>opened 3 days ago</Text>
+            <Text>Opened {formatDistanceToNow(issue.createdAt, { addSuffix: true })}</Text>
           </HStack>
 
           <HStack gapX="2">

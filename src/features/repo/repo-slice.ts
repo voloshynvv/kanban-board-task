@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '@/redux/store';
 import { AsyncSlice, createAppAsyncThunk } from '@/redux/with-types';
 import { Repo } from './types';
 import { env } from '@/config/env';
@@ -18,8 +19,6 @@ const adaptDto = (repo: any): Repo => {
     stars: repo.stargazers_count,
   };
 };
-
-console.log(env.apiKey);
 
 export const fetchRepo = createAppAsyncThunk(
   'repo/fetchRepo',
@@ -68,5 +67,15 @@ const repoSlice = createSlice({
       .addCase(urlCleared, () => initialState);
   },
 });
+
+export const selectRepo = (state: RootState) => {
+  return state.repo.data;
+};
+export const selectRepoError = (state: RootState) => {
+  return state.repo.error;
+};
+export const selectRepoStatus = (state: RootState) => {
+  return state.repo.status;
+};
 
 export default repoSlice.reducer;

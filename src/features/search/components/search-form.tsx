@@ -3,12 +3,12 @@ import { useAppDispatch, useAppSelector } from '@/redux/with-types';
 
 import { Box, Button, HStack, Input, Tag, Text, VisuallyHidden } from '@chakra-ui/react';
 
-import { urlCleared, urlSet } from '../search-slice';
+import { selectSearchUrl, urlCleared, urlSet } from '../search-slice';
 import { suggestions } from '../config';
 import { localStorageService } from '@/services/local-storage';
 
 export const SearchForm = () => {
-  const repoUrl = useAppSelector((state) => state.search.url);
+  const repoUrl = useAppSelector(selectSearchUrl);
 
   return <Form key={repoUrl} initialValue={repoUrl} />;
 };
