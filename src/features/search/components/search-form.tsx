@@ -84,7 +84,7 @@ export const Form = ({ initialValue }: SearchFormProps) => {
   };
 
   return (
-    <Box asChild pb="9">
+    <Box asChild pb={{ md: '9' }}>
       <form onSubmit={handleSubmit}>
         <HStack justifyContent="space-between">
           <Box flex="1" position="relative">
@@ -100,7 +100,7 @@ export const Form = ({ initialValue }: SearchFormProps) => {
             </Box>
 
             <HStack position="absolute" justifyContent="space-between" w="100%" top="100%" mt="2">
-              <HStack>
+              <HStack hideBelow="md">
                 {suggestions.map((suggestion) => (
                   <Tag.Root asChild key={suggestion.id}>
                     <button type="button" onClick={() => handleSuggestionClick(suggestion.url)}>

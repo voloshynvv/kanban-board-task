@@ -46,7 +46,7 @@ export const IssuesBoard = ({ issues, repo, owner }: IssuesBoardProps) => {
       onDragEnd={handleDragEnd}
       onDragOver={handleDragOver}
     >
-      <Grid gridTemplateColumns="repeat(3, 1fr)" gap={5}>
+      <Grid gridTemplateColumns="repeat(3, minmax(280px, 1fr))" gap={5} overflow="auto">
         <BoardColumn status={IssueStatus.Todo} items={items[IssueStatus.Todo]} />
         <BoardColumn status={IssueStatus.InProgress} items={items[IssueStatus.InProgress]} />
         <BoardColumn status={IssueStatus.Done} items={items[IssueStatus.Done]} />

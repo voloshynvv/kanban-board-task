@@ -7,7 +7,7 @@ interface RepoDetailsProps {
 
 export const RepoDetails = ({ repo }: RepoDetailsProps) => {
   return (
-    <HStack>
+    <HStack flexWrap="wrap">
       <Link href={repo.owner.url} target="_blank" color="blue.700">
         {repo.owner.login}
       </Link>

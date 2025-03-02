@@ -5,7 +5,7 @@ export const AppSkeleton = () => {
     <Box>
       <Skeleton height="24px" />
 
-      <Grid gridTemplateColumns="repeat(3, 1fr)" mt="2" gap="5">
+      <Grid overflow="auto" gridTemplateColumns="repeat(3, minmax(280px, 1fr))" mt="2" gap="5">
         <Box>
           <Skeleton mx="auto" width="50%" height="30px" mb="2" />
           <Skeleton borderRadius="0" height="72vh" />
