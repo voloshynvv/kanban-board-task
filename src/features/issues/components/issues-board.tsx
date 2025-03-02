@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { closestCorners, DndContext, DragOverlay } from '@dnd-kit/core';
-import { useAppDispatch, useAppSelector } from '@/redux/with-types';
+import { useAppDispatch } from '@/redux/with-types';
 
 import { Grid } from '@chakra-ui/react';
 import { useDnd } from '@/components/dnd';
