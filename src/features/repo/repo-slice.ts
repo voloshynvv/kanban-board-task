@@ -19,12 +19,14 @@ const adaptDto = (repo: any): Repo => {
   };
 };
 
+console.log(env.apiKey);
+
 export const fetchRepo = createAppAsyncThunk(
   'repo/fetchRepo',
   async ({ owner, repo }: { owner: string; repo: string }): Promise<Repo> => {
     const response = await fetch(`${env.baseUrl}/repos/${owner}/${repo}`, {
       headers: {
-        Authorization: `Bearer ${env.apiKey}`,
+        Authorization: env.apiKey ? `Bearer ${env.apiKey}` : '',
       },
     });
 

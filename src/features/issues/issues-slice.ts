@@ -45,7 +45,7 @@ export const fetchIssues = createAppAsyncThunk(
   async ({ owner, repo }: { owner: string; repo: string }): Promise<Issue[]> => {
     const response = await fetch(`${env.baseUrl}/repos/${owner}/${repo}/issues?state=all`, {
       headers: {
-        Authorization: `Bearer ${env.apiKey}`,
+        Authorization: env.apiKey ? `Bearer ${env.apiKey}` : '',
       },
     });
 
