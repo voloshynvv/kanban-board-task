@@ -1,9 +1,10 @@
-import { fireEvent, screen, waitFor } from '@testing-library/dom';
-import { renderWithProviders } from './utils/test';
-import { App } from './app';
-import { server } from './setup-tests';
 import { http, HttpResponse } from 'msw';
+import { fireEvent, screen } from '@testing-library/dom';
+import { renderWithProviders } from './utils/test';
+import { server } from './setup-tests';
 import { env } from './config/env';
+
+import { App } from './app';
 
 describe('App flow', () => {
   it('shows intro screen when search options are empty', () => {
